@@ -1,6 +1,6 @@
 ﻿,CPU Model,Manufacturer,Socket,Core,Power,Clock Frequency,Score (CPU Mark),Cache Size,Price
 1,Core i5-12600K,Intel,Socket 1700,10,125,3.7,27626 ,20,180.97
-2,Core i5-14600K,Intel,Socket 1700,14,125,3.5,38633 ,24,"	164.00"
+2,Core i5-14600K,Intel,Socket 1700,14,125,3.5,38633 ,24,164.00
 3,Core i5-13600KF,Intel,Socket 1700,14,125,3.5,37527 ,24,189.99
 4,Core i5-12400F,Intel,Socket 1700,6,65,2.5,19471 ,18,108.99
 5,Core i7-14700K,Intel,Socket 1700,20,125,3.4,52629 ,33,303.61
@@ -90,11 +90,11 @@
 89,Core i7-3930K,Intel,Socket 2011,6,130,3.2,8205 ,12,617.74
 90,Ryzen 5 2400G,AMD,Socket AM4,4,65,3.6,8738 ,4,125
 91,Core i7-7820X,Intel,Socket 2066,8,140,3.6,17171 ,11,741.06
-92,Core i5-6600,Intel,Socket 1151,4,35,3.3,6056 ,6,N/A
+92,Core i5-6600,Intel,Socket 1151,4,35,3.3,6056 ,6,0
 93,Core i3-9350KF,Intel,Socket 1151,4,91,4,7559 ,8,129
 94,Core i7-6700HQ,Intel,BGA 1440,4,45,2.6,6525 ,6,378
 95,Core i5-2500,Intel,Socket 1155,4,95,3.3,4116 ,6,135.84
 96,Ryzen TR 2920X,AMD,Socket SP3r2,12,180,3.5,25235 ,32,225.1
 97,Core i7-3770K,Intel,Socket 1155,4,77,3.5,6477 ,8,165.63
 98,Core i5-4590,Intel,Socket 1150,4,84,3.3,5373 ,6,45.42
-99,Core i7-2600,Intel,Socket 1155,4,95,3.4,5349 ,8,N/A
+99,Core i7-2600,Intel,Socket 1155,4,95,3.4,5349 ,8,0
