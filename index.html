@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel = "stylesheet" href = "style.css">
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+
+    <script src="scatterplot.js"></script>
+    <script src="pc.js"></script>
+    <script src="heatmap.js"></script>
+
+    <title>CPU Spec Information</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-container custom-navbar">
+            <span class="navbar-brand custom-title">CPU Spec Information</span>
+        </nav>
+        <div class="custom-underline"></div>
+    </header>
+
+    <main class="main-container">
+        <div class="row pt-2 justify-content-center align-items-center g-2" style="background-color:#ffffff; text-align: center;">
+            <div class="col-auto text-end label">
+                <strong>Attribute (X):</strong>
+            </div>
+            <div class="col-auto">
+                <select class="form-select" id="x-select">
+                    <option value="Core" selected>Core</option>
+                    <option value="Power">Power</option>
+                    <option value="Clock Frequency">Clock Frequency</option>
+                    <option value="Score (CPU Mark)">Score</option>
+                    <option value="Cache Size">Cache Size</option>
+                    <option value="Price">Price</option>
+                </select>
+            </div>
+        
+            <div class="col-auto text-end label">
+                <strong>Attribute (Y):</strong>
+            </div>
+            <div class="col-auto">
+                <select class="form-select" id="y-select">
+                    <option value="Price" selected>Price</option>
+                    <option value="Power">Power</option>
+                    <option value="Clock Frequency">Clock Frequency</option>
+                    <option value="Score (CPU Mark)">Score</option>
+                    <option value="Cache Size">Cache Size</option>
+                    <option value="Price">Price</option>
+                </select>
+            </div>
+        
+            <div class="col-auto">
+                <button class="btn btn-warning" id="resetzoom">Reset Zoom</button>
+            </div>
+        </div>
+        
+        <!-- <div class="text-end">
+            <button class="btn btn-primary" id="update">Update</button>
+            <button class="btn btn-secondary" id="reset">Reset</button>
+        </div> -->
+        <div class="first-row", style = "background-color: rgb(255, 255, 255);">
+            
+            <svg width="400" height="400" id="scatterplot", style = "background-color: rgb(255, 255, 255);">
+                <rect class="box1" x="5" y="5" width="1210" height="490" />
+            </svg>
+            
+            <div class="tooltip bs-tooltip-top show" id="sc-tooltip" role="tooltip" style="display:none; position: absolute;">
+                <div class="tooltip-arrow"></div>
+                <div class="tooltip-inner">
+                </div>
+            </div>
+        </div>
+        <div class="custom-underline2"></div>
+        <div class="second-row" style="background-color: rgb(255, 255, 255); padding: 10px;">
+            <div class = "mfr-button-container">
+
+                <div class="mfr-filter-box" data-value="All">All</div>
+                <div class="mfr-filter-box" data-value="Intel">Intel</div>
+                <div class="mfr-filter-box" data-value="AMD">AMD</div>
+              
+              </div>
+            <svg width="400" height="400" id="parallelplot" style="background-color: rgb(255, 255, 255);">
+                <rect class="box1" x="5" y="5" width="1830" height="470" />
+            </svg>
+            <div class="tooltip bs-tooltip-top show" id="pp-tooltip" role="tooltip" style="display:none; position: absolute;">
+                <div class="tooltip-arrow"></div>
+                <div class="tooltip-inner">
+                </div>
+            </div>
+        </div>
+        <div class="custom-underline2"></div>
+        <div class="row justify-content-center">
+            <div class="col-6 text-center">
+                <div class="mb-2 d-flex justify-content-center align-items-center gap-4 scaleb">
+                  <div>
+                    <label for="h1-select"><strong>X Scale :</strong></label><br />
+                    <select class="form-select d-inline-block w-auto" id="h11-select">
+                        <!-- <option value="1">1</option> -->
+                        <option value="2" selected>2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                  </div>
+              
+                  <div>
+                    <label for="h1b-select"><strong>Y Scale :</strong></label><br />
+                    <select class="form-select d-inline-block w-auto" id="h12-select">
+                      <option value="1" selected>1</option>
+                      <!-- <option value="0.1">0.1</option> -->
+                      <option value="0.2">0.2</option>
+                      <option value="0.4">0.4</option>
+                      <option value="0.6">0.6</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              
+            <div class="col-6 text-center">
+                <div class="mb-2 attrb">
+                <label for="h2-select"><strong>Select Attribute :</strong></label>
+                <select class="form-select d-inline-block w-auto" id="h2-select">
+                    <option value="Price" selected>Price</option>
+                    <option value="Clock Frequency">Clock Frequency</option>
+                    <option value="Score (CPU Mark)">Score</option>
+                    <option value="Cache Size">Cache Size</option>
+                    <option value="Core">Core</option>
+                </select>
+                </div>
+            </div>
+        </div>
+        <div class="third-row" style="background-color: rgb(255, 255, 255);">
+            <svg id="heatmap1" width="400" height="400" style="background-color: #fff;">
+                <rect class="box1" x="20" y="5" width="640" height="510" />
+            </svg>
+            <svg id="heatmap2" width="400" height="400" style="background-color: #fff;">
+                <rect class="box1" x="20" y="5" width="1020" height="510" />
+            </svg>
+        </div>
+    </main>
+
+    <script>
+        let data, brushedData, scatterplot, parallelplot, heatmap1, heatmap2;
+        let currentManufacturer = "All";
+
+        function updateScatterplot() {
+            let xVar = d3.select("#x-select").property("value");
+            let yVar = d3.select("#y-select").property("value");
+            scatterplot.update(xVar, yVar, "Manufacturer", 1)
+        }
+
+        function updateParallelplot() {
+            
+            let mf = currentManufacturer === "All" ? data : data.filter(d => d["Manufacturer"] === currentManufacturer);
+            parallelplot.data = mf;
+            parallelplot.update(mf);
+        }
+
+        function updateHeatMap() {
+            let Scale1 = parseFloat(d3.select("#h11-select").property("value"));
+            let Scale2 = parseFloat(d3.select("#h12-select").property("value"));
+            let Var = d3.select("#h2-select").property("value");
+            let Scale3;
+            
+            if (Var==="Price"){
+                Scale3 = 100;
+            }else if (Var==="Clock Frequency") {
+                Scale3 = 0.2;
+            }else if (Var==="Score (CPU Mark)") {
+                Scale3 = 5000;
+            }else if (Var==="Cache Size") {
+                Scale3 = 10;
+            }else {
+                Scale3 = 2;
+            }
+
+            heatmap1.update("Core", "Clock Frequency", "Power", Scale1, Scale2);
+            heatmap2.update("Released", Var, "Power", 1, Scale3);
+        }
+
+        d3.csv("https://raw.githubusercontent.com/junhyeok2164/InfoVis/refs/heads/main/spec.csv")
+            .then(csvData => {
+                csvData.forEach(d => {
+                    d["Core"] = +d["Core"];
+                    d["Power"] = +d["Power"];
+                    d["Cache Size"] = +d["Cache Size"];
+                    d["Price"] = +d["Price"];
+                    d["Score (CPU Mark)"] = +d["Score (CPU Mark)"];
+                    d["Clock Frequency"] = +d["Clock Frequency"];
+                    d["Socket"] = d["Socket"];
+                    d["Manufacturer"] = d["Manufacturer"];
+                    d["CPU Model"] = d["CPU Model"];
+                    d["Released"] = +d["Released"];
+                });
+
+                data = csvData;
+
+                scatterplot = new Scatterplot("#scatterplot", "#sc-tooltip", data);
+                scatterplot.initialize();
+
+                parallelplot = new PC("#parallelplot", "#pp-tooltip", data);
+                parallelplot.initialize();
+
+                heatmap1 = new Heatmap("#heatmap1", "hm-tooltip", data, 500);
+                heatmap1.initialize();
+                heatmap2 = new Heatmap("#heatmap2", "hm-tooltip", data, 800);
+                heatmap2.initialize();
+
+                scatterplot.on("brush", brushedData => {
+                    parallelplot.data = brushedData;
+                    parallelplot.update(brushedData);
+                });
+
+                d3.select("#resetzoom").on("click", () => {
+                    scatterplot.resetZoom();
+                });
+
+                updateScatterplot();
+                updateParallelplot();
+                updateHeatMap();
+
+                d3.select("#x-select").on("change", updateScatterplot);
+                d3.select("#y-select").on("change", updateScatterplot);
+                d3.select("#h11-select").on("change", updateHeatMap);
+                d3.select("#h12-select").on("change", updateHeatMap);
+                d3.select("#h2-select").on("change", updateHeatMap);
+                d3.selectAll(".mfr-filter-box")
+                    .on("click", function () {
+                        const selected = d3.select(this).attr("data-value");
+                        currentManufacturer = selected;
+                        d3.selectAll(".mfr-filter-box").classed("active", false);
+                        d3.select(this).classed("active", true);
+
+                        updateParallelplot();
+                    });
+                // d3.selectAll("#use-color").on("change", updateScatterplot);
+
+                // TODO: bind an event handler to "brush" events                     
+
+                // histogram = new Histogram("#histogram");
+                // histogram.initialize();
+
+                // updateHistogram();
+
+                // dataTable = new DataTable("#data-table");
+
+                // updateDataTable();
+            })
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
